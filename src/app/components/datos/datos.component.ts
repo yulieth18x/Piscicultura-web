@@ -15,10 +15,21 @@ export class DatosComponent implements OnInit {
     this.ApiService.getDatosSensor().subscribe(
       (data: any) => {
         this.datos = data.response;
+        this.formatDates(); // Llama al método para formatear las fechas
       },
       (error: any) => {
         console.error('Error al obtener los datos del sensor:', error);
       }
     );
+  }
+
+  formatDates() {
+    // Itera sobre los datos y formatea las fechas
+    this.datos.forEach((dato: any) => {
+      dato.FechaHora = new Date(dato.FechaHora).toLocaleDateString('es-ES', { 
+        year: 'numeric', month: '2-digit', day: '2-digit',
+        hour: '2-digit', minute: '2-digit', second: '2-digit'
+      });
+    });
   }
 }
