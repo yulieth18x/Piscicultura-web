@@ -1,0 +1,10 @@
+<div *ngFor="let dato of datos">
+    <p>ID: {{ dato.ID }}</p>
+    <p>Temperatura: {{ dato.Temperatura }}</p>
+    <p>Distance1: {{ dato.Distance1 }}</p>
+    <p>Distance2: {{ dato.Distance2 }}</p>
+    <p>TDSValue: {{ dato.TDSValue }}</p>
+    <p>PHValue: {{ dato.PHValue }}</p>
+    <p>FechaHora: {{ dato.FechaHora | date: 'dd/MM/yyyy HH:mm:ss' }}</p>
+  </div>
+  
