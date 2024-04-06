@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core'; // Ruta relativa para acceder al archivo ApiService en la misma carpeta
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
+import { DatePipe } from '@angular/common'; 
 
 @Component({
   selector: 'app-datos',
@@ -9,16 +10,17 @@ import { ApiService } from '../../services/api.service';
 export class DatosComponent implements OnInit {
   datos: any;
 
-  constructor(private ApiService: ApiService) { }
+  constructor(private apiService: ApiService, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
-    this.ApiService.getDatosSensor().subscribe(
+    this.apiService.getDatosSensor().subscribe(
       (data: any) => {
         this.datos = data.response;
         this.formatDates(); // Llama al método para formatear las fechas
       },
       (error: any) => {
         console.error('Error al obtener los datos del sensor:', error);
+        // Aquí puedes realizar alguna acción adicional, como mostrar un mensaje de error en la interfaz de usuario
       }
     );
   }
@@ -26,10 +28,7 @@ export class DatosComponent implements OnInit {
   formatDates() {
     // Itera sobre los datos y formatea las fechas
     this.datos.forEach((dato: any) => {
-      dato.FechaHora = new Date(dato.FechaHora).toLocaleDateString('es-ES', { 
-        year: 'numeric', month: '2-digit', day: '2-digit',
-        hour: '2-digit', minute: '2-digit', second: '2-digit'
-      });
+      dato.FechaHora = this.datePipe.transform(dato.FechaHora, 'dd/MM/yyyy HH:mm:ss');
     });
   }
 }

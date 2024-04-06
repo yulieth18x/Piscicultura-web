@@ -13,7 +13,7 @@ import { DatosComponent } from './components/datos/datos.component';
     BrowserModule,
     AppRoutingModule 
   ],
-  providers: [],
+  providers: [], // Elimina DatePipe de aquí
   bootstrap: [AppComponent]
 })
 export class AppModule { }
